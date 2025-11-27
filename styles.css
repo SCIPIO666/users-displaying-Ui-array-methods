@@ -55,7 +55,7 @@ p {
  padding: 0;
  }
  .users-list li:nth-child(odd) {
- background-color: f4f4f4;
+ background-color: #f4f4f4;
  }
  .users-list li {
  padding: 1rem;
@@ -81,5 +81,5 @@ p {
  transition: background-color 0.3s ease;
  }
  .actions button:hover {
- background-color: e0e0e0;
+ background-color: #e0e0e0;
  }

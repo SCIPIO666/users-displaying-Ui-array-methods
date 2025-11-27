@@ -38,3 +38,48 @@ p {
     font-size: 1rem; /* 1 * 16px = 16px */
 }
 
+ .main-container {
+ width: 80%;
+ height: 80vh;
+ margin: 50px auto;
+ padding: 2rem;
+ border-radius: 10px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ }
+ header {
+ text-align: center;
+ margin-bottom: 2rem;
+ }
+ .users-list {
+ list-style-type: none;
+ padding: 0;
+ }
+ .users-list li:nth-child(odd) {
+ background-color: f4f4f4;
+ }
+ .users-list li {
+ padding: 1rem;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ }
+ .actions {
+    margin: 0 auto;
+    padding: 5px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+
+.actions button {
+ padding: 0.5rem 1rem;
+ margin: 0.5rem;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+ }
+ .actions button:hover {
+ background-color: e0e0e0;
+ }

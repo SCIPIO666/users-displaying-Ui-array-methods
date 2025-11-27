@@ -1,0 +1,40 @@
+html body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Important for consistent box model */
+}
+*,
+*::before,
+*::after {
+    box-sizing: inherit; /* Elements will inherit box-sizing from their parent */
+}
+html {
+    font-size: 16px; /* Base font size */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    font-size: 1rem; /* Equivalent to 16px */
+    line-height: 1.6; /* For readability */
+}
+
+h1 {
+    font-size: 2.5rem; /* 2.5 * 16px = 40px */
+    margin-bottom: 0.5em; /* Relative to H1's font size */
+}
+
+h2 {
+    font-size: 2rem; /* 2 * 16px = 32px */
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    font-size: 1.5rem; /* 1.5 * 16px = 24px */
+}
+
+p {
+    font-size: 1rem; /* 1 * 16px = 16px */
+}
+

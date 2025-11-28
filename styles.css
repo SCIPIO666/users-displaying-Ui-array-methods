@@ -53,6 +53,8 @@ p {
  .users-list {
  list-style-type: none;
  padding: 0;
+ display: flex;
+ flex-direction: row;
  }
  .users-list li:nth-child(odd) {
  background-color: #f4f4f4;
@@ -62,7 +64,14 @@ p {
  display: flex;
  justify-content: space-between;
  align-items: center;
+ flex-direction: column;
+ 
  }
+  .users-list li img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
  .actions {
     margin: 0 auto;
     padding: 5px;
@@ -82,4 +91,11 @@ p {
  }
  .actions button:hover {
  background-color: #e0e0e0;
+ }
+ 
+  .user {
+ border: 1px solid ccc;
+ padding: 10px;
+ margin: 10px 0;
+ border-radius: 5px;
  }

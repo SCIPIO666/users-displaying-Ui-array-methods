@@ -55,6 +55,7 @@ p {
  padding: 0;
  display: flex;
  flex-direction: row;
+ flex-wrap: wrap;
  }
  .users-list li:nth-child(odd) {
  background-color: #f4f4f4;
@@ -67,11 +68,7 @@ p {
  flex-direction: column;
  
  }
-  .users-list li img{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
+
  .actions {
     margin: 0 auto;
     padding: 5px;
@@ -79,6 +76,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: static;
  }
 
 .actions button {
@@ -92,10 +90,21 @@ p {
  .actions button:hover {
  background-color: #e0e0e0;
  }
- 
+
   .user {
- border: 1px solid ccc;
+ border: 1px solid #ccc;
  padding: 10px;
- margin: 10px 0;
+ margin: 10px;
  border-radius: 5px;
+     display: flex;
+    flex-direction: row;
  }
+ .user{
+    display: flex;
+    flex-direction: row;
+ }
+   .users-list li img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }

@@ -1,18 +1,18 @@
 //////---global variables----////////
 
-const usersContainer=document.getElementsByClassName("users-list");
+const usersContainer=document.querySelector(".users-list");
 
 ////////////------  state/data----------  /////////////////
 async function fetchMultipleUsers(num) {
  let response = await fetch(`https://randomuser.me/api/?results=${num}`);
  let data = await response.json();
- console.log(data.results[0]); 
+ console.log(data.results); 
 
  return data.results;
 
  }
 
- fetch()
+
 // fetchMultipleUsers(20);
 
 ////////////////////////////////////////////
@@ -24,14 +24,77 @@ async function fetchMultipleUsers(num) {
 
 
  ////////////////// ---UI COMPONENTS ---////////////////////////////////////////////
+ function createNode(tag,className,parent,content=""){
+
+    const newElement=document.createElement(tag);
+    newElement.classList.add(className);
+    newElement.textContent=content;
+
+  parent.appendChild(newElement);
+  return newElement;
+
+ }
+
+
+
  class Users{
-    constructor(usersArray){
+    constructor(usersArray,container,childCreatorFunction){
         this.usersArray=usersArray;
-        this.parentContainer=
+        this.parent=container;
+        this.childCreatorFunction=childCreatorFunction;
     }
 
-    addUsers(){
+    addUsers() {
+            if (!this.usersArray || this.usersArray.length === 0) {
+                console.error("User array is empty or not loaded.");
+                return;
+            }
 
+            let userNodes = ["img", "h2", "div", "div", "div"];
+            let userNodeClasses = ["user-photo", "user-name", "user-email", "user-location", "wealth"];
+
+            for (let i = 0; i < this.usersArray.length; i++) {
+                
+                const newUser = this.childCreatorFunction("li", "user", this.parent);
+                newUser.setAttribute("id", `user${i}`);
+
+                userNodes.forEach((node, index) => {
+                    
+                    const nodeClass = userNodeClasses[index]; 
+                    const createdNode = this.childCreatorFunction(node, nodeClass, newUser); 
+                   
+                    if (createdNode.classList.contains("user-photo")) {
+                        this.allocateContent(createdNode, i);
+                    } else {
+                        createdNode.textContent = this.allocateContent(createdNode, i);
+                    }
+                });
+            }
+        }
+
+    allocateContent(node,number){
+        if(node.classList.contains("user-photo")){
+            node.setAttribute("src",this.usersArray[number].picture.medium)
+
+        }
+        if(node.classList.contains("user-name")){
+            return this.usersArray[number].name;
+
+        }
+
+        if(node.classList.contains("user-email")){
+            return this.usersArray[number].email;
+        }
+
+        if(node.classList.contains("user-location")){
+            return `${this.usersArray[number].location.city}, ${this.usersArray[number].location.country}`
+        }
+        if(node.classList.contains("wealth")){
+            const randomWealth=Math.floor(Math.random() * (2000000000 - 200000  + 1)) + 200000;
+            return `$${randomWealth.toLocaleString('en-US')}`;
+
+        }
+        return ""; // Fallback return value
 
     }
 
@@ -45,7 +108,19 @@ async function fetchMultipleUsers(num) {
 
  }
 
+async function initializeApp() {
+    const usersArray = await fetchMultipleUsers(10);
+    
+    if (!usersContainer) {
+        console.error("Element with class 'users-list' not found.");
+        return;
+    }
 
+    const ui = new Users(usersArray, usersContainer, createNode);
+    ui.addUsers(); 
+    
+}
 
-
+ initializeApp(); // Start the application
  ///////////////////////////////////////////////////////////////////////////////
+

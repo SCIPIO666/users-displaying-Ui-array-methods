@@ -1,13 +1,17 @@
 //////---global variables----////////
 
 const usersContainer=document.querySelector(".users-list");
-
 ////////////------  state/data----------  /////////////////
 async function fetchMultipleUsers(num) {
  let response = await fetch(`https://randomuser.me/api/?results=${num}`);
- let data = await response.json();
- console.log(data.results); 
 
+ let data;
+    if(!response.ok){
+        console.error("failed to fetch users")
+    }{
+         data= await response.json();
+    }
+ console.log(data.results); 
  return data.results;
 
  }
@@ -28,7 +32,7 @@ async function fetchMultipleUsers(num) {
 
     const newElement=document.createElement(tag);
     newElement.classList.add(className);
-    newElement.textContent=content;
+    newElement.innerHTML=content;
 
   parent.appendChild(newElement);
   return newElement;
@@ -78,20 +82,20 @@ async function fetchMultipleUsers(num) {
 
         }
         if(node.classList.contains("user-name")){
-            return this.usersArray[number].name;
+            return `<label>Name:</label> ${this.usersArray[number].name.title} ${this.usersArray[number].name.first} ${this.usersArray[number].name.last}`;
 
         }
 
         if(node.classList.contains("user-email")){
-            return this.usersArray[number].email;
+            return `<label>Email:</label> ${this.usersArray[number].email}`;
         }
 
         if(node.classList.contains("user-location")){
-            return `${this.usersArray[number].location.city}, ${this.usersArray[number].location.country}`
+            return `<label>Location:</label> ${this.usersArray[number].location.city}, ${this.usersArray[number].location.country}`
         }
         if(node.classList.contains("wealth")){
             const randomWealth=Math.floor(Math.random() * (2000000000 - 200000  + 1)) + 200000;
-            return `$${randomWealth.toLocaleString('en-US')}`;
+            return `<label>Wealth:</label> $${randomWealth.toLocaleString('en-US')}`;
 
         }
         return ""; // Fallback return value

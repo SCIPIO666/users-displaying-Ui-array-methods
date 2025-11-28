@@ -39,27 +39,18 @@ p {
 }
 
  .main-container {
- width: 80%;
- height: 80vh;
- margin: 50px auto;
- padding: 2rem;
+ width: 90%;
+ height: 30vh;
+ margin: auto;
+ padding: 1rem;
  border-radius: 10px;
  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
  }
  header {
  text-align: center;
- margin-bottom: 2rem;
+ margin-bottom: 1.5rem;
  }
- .users-list {
- list-style-type: none;
- padding: 0;
- display: flex;
- flex-direction: row;
- flex-wrap: wrap;
- }
- .users-list li:nth-child(odd) {
- background-color: #f4f4f4;
- }
+
  .users-list li {
  padding: 1rem;
  display: flex;
@@ -76,7 +67,12 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: static;
+    margin: 10px  auto;
+
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: transparent;
  }
 
 .actions button {
@@ -86,25 +82,67 @@ p {
  border-radius: 5px;
  cursor: pointer;
  transition: background-color 0.3s ease;
+ border: solid 2px burlywood;
+
  }
  .actions button:hover {
- background-color: #e0e0e0;
+ background-color: brown;
+ color: aqua;
  }
 
-  .user {
- border: 1px solid #ccc;
+ .user{
+     border: 1px solid #ccc;
  padding: 10px;
  margin: 10px;
  border-radius: 5px;
-     display: flex;
-    flex-direction: row;
- }
- .user{
     display: flex;
     flex-direction: row;
+    width: 23%;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
  }
    .users-list li img{
     width: 100px;
     height: 100px;
     border-radius: 50%;
   }
+
+.user-name, 
+.user-email,
+.user-location,
+.wealth{
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+padding: 2px 6px;
+margin: 4px;
+transition: all .2s ease-in-out;
+
+}
+.user-name{
+    font-size: 1em;
+}
+.user-name:hover, 
+.user-email:hover,
+.user-location:hover,
+.wealth:hover{
+    background-color: darkolivegreen;
+    color: yellow;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+.users-list{
+width: 90vw;
+ margin: 20px auto;
+ border-radius: 10px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ height: fit-content;
+ overflow-y: scroll;
+ display: flex;
+ flex-direction: row;
+ flex-wrap: wrap;
+  padding: 1rem;
+}
+label{
+    font-weight: bold;
+    color: darkviolet;
+}

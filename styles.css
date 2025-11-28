@@ -68,7 +68,8 @@ p {
     justify-content: center;
     align-items: center;
     margin: 10px  auto;
-
+    display: flex;
+    flex-wrap: wrap;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -98,7 +99,12 @@ p {
     display: flex;
     flex-direction: row;
     width: 23%;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 1px burlywood;
+    transition: transform .3s ease-in-out, box-shadow .2s ease-in-out;
+ }
+ .user:hover{
+    transform: scale(1.1);
+    box-shadow: 0px 0px 1px brown;
  }
    .users-list li img{
     width: 100px;
@@ -114,10 +120,12 @@ width: 100%;
 display: flex;
 flex-wrap: wrap;
 padding: 2px 6px;
-margin: 4px;
+margin: 1px;
 transition: all .2s ease-in-out;
+flex: 1 1;
 
 }
+
 .user-name{
     font-size: 1em;
 }
@@ -125,8 +133,8 @@ transition: all .2s ease-in-out;
 .user-email:hover,
 .user-location:hover,
 .wealth:hover{
-    background-color: darkolivegreen;
-    color: yellow;
+    background-color: cadetblue;
+    color: white;
     border-radius: 5px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
@@ -144,5 +152,15 @@ width: 90vw;
 }
 label{
     font-weight: bold;
-    color: darkviolet;
+    display: block;
+    color: brown;
+
+}
+.wealth{
+    color: #0000ff8c;
+}
+#search-user{
+    width: 100%;
+    padding: 5px;
+    margin: 2px;
 }

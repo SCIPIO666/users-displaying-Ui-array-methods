@@ -1,30 +1,40 @@
 //////---global variables----////////
 
 const usersContainer=document.querySelector(".users-list");
+
+
+//-----------------------------------------------------------////
+
+
 ////////////------  state/data----------  /////////////////
 async function fetchMultipleUsers(num) {
- let response = await fetch(`https://randomuser.me/api/?results=${num}`);
+    try{
+        let response = await fetch(`https://randomuser.me/api/?results=${num}`);
+            
+                if(!response.ok){
+                    throw new Error(`HTTP error1 Status: ${response.status}`)
+                }{
+                    let data= await response.json();
+                    console.log(data.results); 
+                    return data.results;
+                }
 
- let data;
-    if(!response.ok){
-        console.error("failed to fetch users")
-    }{
-         data= await response.json();
-    }
- console.log(data.results); 
- return data.results;
+    }catch (error) {
+        console.error(`Fetch error:  ${error.message}`);
+     }
+ 
 
- }
+}
 
 
 // fetchMultipleUsers(20);
 
-////////////////////////////////////////////
+//////------------------------------------------------------------//
 
-////////////////////////---- logic/app functionality rules ---  //////////////////////
+////////////////////////---- array methods ---  //////////////////////
 
 
- /////////////////////////////////////////////////////////////////////////////
+ ///////////------------------------------------------------------//////////////////////////
 
 
  ////////////////// ---UI COMPONENTS ---////////////////////////////////////////////
@@ -70,7 +80,7 @@ async function fetchMultipleUsers(num) {
                     if (createdNode.classList.contains("user-photo")) {
                         this.allocateContent(createdNode, i);
                     } else {
-                        createdNode.textContent = this.allocateContent(createdNode, i);
+                        createdNode.innerHTML = this.allocateContent(createdNode, i);
                     }
                 });
             }
@@ -82,20 +92,20 @@ async function fetchMultipleUsers(num) {
 
         }
         if(node.classList.contains("user-name")){
-            return `<label>Name:</label> ${this.usersArray[number].name.title} ${this.usersArray[number].name.first} ${this.usersArray[number].name.last}`;
+            return `<label>Name: </label> ${this.usersArray[number].name.title} ${this.usersArray[number].name.first} ${this.usersArray[number].name.last}`;
 
         }
 
         if(node.classList.contains("user-email")){
-            return `<label>Email:</label> ${this.usersArray[number].email}`;
+            return `<label>Email: </label> ${this.usersArray[number].email}`;
         }
 
         if(node.classList.contains("user-location")){
-            return `<label>Location:</label> ${this.usersArray[number].location.city}, ${this.usersArray[number].location.country}`
+            return `<label>Location: </label> ${this.usersArray[number].location.city}, ${this.usersArray[number].location.country}`
         }
         if(node.classList.contains("wealth")){
             const randomWealth=Math.floor(Math.random() * (2000000000 - 200000  + 1)) + 200000;
-            return `<label>Wealth:</label> $${randomWealth.toLocaleString('en-US')}`;
+            return `<label>Wealth: </label> $${randomWealth.toLocaleString('en-US')}`;
 
         }
         return ""; // Fallback return value
@@ -103,17 +113,22 @@ async function fetchMultipleUsers(num) {
     }
 
     removeUsers(){
-
+        const users=document.querySelectorAll(".user");
+        users.forEach(user=>{
+            user.remove();
+        });
     }
 
     getUser(userId){
-
+        this.usersArray.filter(index=>{
+            userId=this.usersArray[index]=userId
+        });
     }
 
  }
 
 async function initializeApp() {
-    const usersArray = await fetchMultipleUsers(10);
+    const usersArray = await fetchMultipleUsers(32);
     
     if (!usersContainer) {
         console.error("Element with class 'users-list' not found.");

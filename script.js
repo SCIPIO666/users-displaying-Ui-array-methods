@@ -96,7 +96,6 @@ async function fetchMultipleUsers(num) {
         if(node.classList.contains("wealth")){
             const randomWealth=Math.floor(Math.random() * (2000000000 - 200000  + 1)) + 200000;
             return `<label >Wealth: </label> $${randomWealth.toLocaleString('en-US')}`;
-
         }
         return ""; // Fallback return value
 
@@ -117,11 +116,35 @@ async function fetchMultipleUsers(num) {
 
  }
 //----------------------------------array mehods ------------------------------//
-function doubleMoney(){
+function getWealthElem(userContainer){
+        const wealthElem=userContainer.querySelector(".wealth")
+        return wealthElem;
+}
+function getCurrentWealth(userContainer) {
+    if(!userContainer) return;
+
+    const welathElem=getWealthElem(userContainer);
+  const wealthValue=welathElem.textContent;
+//   console.log(wealthValue);
+  const cleanedValue=wealthValue.replace(/[\D]/g,"");
+//   console.log(cleanedValue.trim())
+  return parseFloat(cleanedValue.trim());
+
+}
+function updateWealthDisplay(wealthValue,wealthNode){
+    wealthNode.innerHTML=`<label >Wealth: </label> $${wealthValue.toLocaleString('en-US')}`;
+}
+
+function doubleMoney() {
     const currentUsers=document.querySelectorAll(".user");
     currentUsers.forEach(user=>{
-            const wealth=user.querySelector(".wealth").textContent.trim();
+        const originalWealth=getCurrentWealth(user);
+        const wealthElem=getWealthElem(user);
+        const doubleWealth=originalWealth*2;
+         updateWealthDisplay(doubleWealth,wealthElem);
+
     });
+updateEachUserWealth()
 }
 function showMillionares(){
 
@@ -169,14 +192,10 @@ buttons.forEach(button=>{
 function updateEachUserWealth(){
     const allUsers=document.querySelectorAll(".user");
     allUsers.forEach(user=>{
-        const wealthElement=user.querySelector(".wealth");
-        if(wealthElement){
-                const userWealth=wealthElement.textContent.trim();
-                user.dataset.wealth=userWealth;
-        }else{
-            console.error("welath element not found");
-        }
+       const wealth=getCurrentWealth(user);
+       user.dataset.wealth=wealth;
     });
+
 }
 async function initializeApp() {
     const usersArray = await fetchMultipleUsers(32);
@@ -187,10 +206,11 @@ async function initializeApp() {
     }
 
     const ui = new Users(usersArray, usersContainer, createNode);
-    ui.addUsers();    
+    ui.addUsers(); 
+    updateEachUserWealth()
+ 
 }
 
  initializeApp(); // Start the application
- updateEachUserWealth();
  ///////////////////////////////////////////////////////////////////////////////
 

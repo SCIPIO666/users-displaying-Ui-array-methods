@@ -10,7 +10,7 @@ const modal= document.querySelector(".display");
 //----------dom events---------------------------------------///
 
 closeModal.addEventListener("click",e=>{
-    modal .classList.toggle("active");
+    modal .classList.remove("active");
 });
 
 ////////////------  state/data----------  /////////////////
@@ -139,6 +139,7 @@ function getCurrentWealth(userContainer) {
   return parseFloat(cleanedValue.trim());
 
 }
+
 function updateWealthDisplay(wealthValue,wealthNode){
     wealthNode.innerHTML=`<label >Wealth: </label> $${wealthValue.toLocaleString('en-US')}`;
 }
@@ -154,6 +155,8 @@ function doubleMoney() {
     });
 updateEachUserWealth()
 }
+
+
 function showMillionares(){
    const currentUsers=document.querySelectorAll(".user");
     currentUsers.forEach(user=>{
@@ -167,21 +170,33 @@ function showMillionares(){
 function sortByRichest(){
  const currentUsers=document.querySelectorAll(".user");
     currentUsers.forEach(user=>{
-        if(user.dataset.wealth>999999){
-            user.style.display="flex";
-        }else{
-            user.style.display="none";
-        }
+       
     });
 }
-function calculateWealth(){
-
-}
-function displayTotal(){
+function displayTotals(totalWealth,wealthArray){
+    const userTotalElem=document.querySelector(".total-users");
+    userTotalElem.textContent=wealthArray.length;
+    const wealthTotalElem=document.querySelector(".total-wealth");
+    wealthTotalElem.textContent=`$${totalWealth.toLocaleString('en-US')}`;
+    
     const overlay=document.querySelector(".display");
-    overlay.classList.toggle("active");
-
+    if(overlay.classList.contains("active"))return;
+    overlay.classList.add("active");
 }
+
+function calculateWealth(){
+    const allUsers=document.querySelectorAll(".user");
+    let usersWealth=[];
+    allUsers.forEach(user=>{
+    const wealth= getCurrentWealth(user);
+    usersWealth.push(wealth);
+    });
+ const totalWealth = usersWealth.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue;
+    }, 0);
+    displayTotals(totalWealth,usersWealth);
+}
+
 const buttons=document.querySelectorAll("button");
 buttons.forEach(button=>{
     button.addEventListener("click",e=>{
@@ -202,7 +217,6 @@ buttons.forEach(button=>{
 
             case "calculate-wealth":
                     calculateWealth();
-                    displayTotal();
                 break;
 
             default:
@@ -232,7 +246,7 @@ async function initializeApp() {
 
     const ui = new Users(usersArray, usersContainer, createNode);
     ui.addUsers(); 
-    updateEachUserWealth()
+    updateEachUserWealth();
  
 }
 

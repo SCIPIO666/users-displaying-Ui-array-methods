@@ -211,6 +211,8 @@ label{
     border: 3px solid bisque;
     position: fixed;
     transition: position .30s ease-in-out;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 .active{
     top: 10%;
@@ -240,19 +242,18 @@ label{
     color: black;
     font-weight: bold;
     font-size: 1.3em;
-    transition: background-color 0.3s ease,letter-spacing .2s ease-in-out,transform .3s ease-in-out;
+    transition: background-color 0.3s ease,transform .3s ease-in-out;
  border: solid 2px burlywood;
 
  }
    #close:hover {
  background-color: brown;
  color: aqua;
- letter-spacing: 2px;
  transform: scale(.8);
  }
  .total-users,.total-wealth{
      background-color: rgb(9, 56, 56);
-    color: white;
+    color: tomato;
     padding: 0 10px 0 10px;
     margin: 5px;
     border-radius: 5px;

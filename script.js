@@ -27,12 +27,6 @@ async function fetchMultipleUsers(num) {
 
 //////------------------------------------------------------------//
 
-////////////////////////---- array methods ---  //////////////////////
-
-
- ///////////------------------------------------------------------//////////////////////////
-
-
  ////////////////// ---UI COMPONENTS ---////////////////////////////////////////////
  function createNode(tag,className,parent,content=""){
 
@@ -101,7 +95,7 @@ async function fetchMultipleUsers(num) {
         }
         if(node.classList.contains("wealth")){
             const randomWealth=Math.floor(Math.random() * (2000000000 - 200000  + 1)) + 200000;
-            return `<label>Wealth: </label> $${randomWealth.toLocaleString('en-US')}`;
+            return `<label >Wealth: </label> $${randomWealth.toLocaleString('en-US')}`;
 
         }
         return ""; // Fallback return value
@@ -123,6 +117,24 @@ async function fetchMultipleUsers(num) {
 
  }
 //----------------------------------array mehods ------------------------------//
+function doubleMoney(){
+    const currentUsers=document.querySelectorAll(".user");
+    currentUsers.forEach(user=>{
+            const wealth=user.querySelector(".wealth").textContent.trim();
+    });
+}
+function showMillionares(){
+
+}
+function sortByRichest(){
+
+}
+function calculateWealth(){
+
+}
+function displayTotal(){
+
+}
 const buttons=document.querySelectorAll("button");
 buttons.forEach(button=>{
     button.addEventListener("click",e=>{
@@ -130,19 +142,20 @@ buttons.forEach(button=>{
 
         switch (action) {
             case "double-money":
-                    doubleMoney()
+                    doubleMoney();
                 break;
 
             case "show-millionaires":
-                    showMillionares()
+                    showMillionares();
                 break;
 
             case "sort-by-richest":
-                    sortByRichest()
+                    sortByRichest();
                 break;
 
             case "calculate-wealth":
-                    calculateWealth()
+                    calculateWealth();
+                    displayTotal();
                 break;
 
             default:
@@ -153,6 +166,18 @@ buttons.forEach(button=>{
 });
 
 //----------------------------------------------------------------------------//
+function updateEachUserWealth(){
+    const allUsers=document.querySelectorAll(".user");
+    allUsers.forEach(user=>{
+        const wealthElement=user.querySelector(".wealth");
+        if(wealthElement){
+                const userWealth=wealthElement.textContent.trim();
+                user.dataset.wealth=userWealth;
+        }else{
+            console.error("welath element not found");
+        }
+    });
+}
 async function initializeApp() {
     const usersArray = await fetchMultipleUsers(32);
     
@@ -162,10 +187,10 @@ async function initializeApp() {
     }
 
     const ui = new Users(usersArray, usersContainer, createNode);
-    ui.addUsers(); 
-    
+    ui.addUsers();    
 }
 
  initializeApp(); // Start the application
+ updateEachUserWealth();
  ///////////////////////////////////////////////////////////////////////////////
 

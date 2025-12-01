@@ -2,7 +2,6 @@
 
 const usersContainer=document.querySelector(".users-list");
 
-
 //-----------------------------------------------------------////
 
 
@@ -15,7 +14,7 @@ async function fetchMultipleUsers(num) {
                     throw new Error(`HTTP error1 Status: ${response.status}`)
                 }{
                     let data= await response.json();
-                    console.log(data.results); 
+                    console.log(data.results);
                     return data.results;
                 }
 
@@ -25,9 +24,6 @@ async function fetchMultipleUsers(num) {
  
 
 }
-
-
-// fetchMultipleUsers(20);
 
 //////------------------------------------------------------------//
 
@@ -126,7 +122,37 @@ async function fetchMultipleUsers(num) {
     }
 
  }
+//----------------------------------array mehods ------------------------------//
+const buttons=document.querySelectorAll("button");
+buttons.forEach(button=>{
+    button.addEventListener("click",e=>{
+        const action=e.target.id;
 
+        switch (action) {
+            case "double-money":
+                    doubleMoney()
+                break;
+
+            case "show-millionaires":
+                    showMillionares()
+                break;
+
+            case "sort-by-richest":
+                    sortByRichest()
+                break;
+
+            case "calculate-wealth":
+                    calculateWealth()
+                break;
+
+            default:
+                console.error("Unknown action:", action);
+                break;
+        }
+    });
+});
+
+//----------------------------------------------------------------------------//
 async function initializeApp() {
     const usersArray = await fetchMultipleUsers(32);
     

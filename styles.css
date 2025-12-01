@@ -192,3 +192,69 @@ label{
  background-color: brown;
  color: aqua;
 }
+.display{
+    position: fixed;
+    top: 10%;
+    left: 100%;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    z-index: 100;
+    color: black;
+    background-color: white;
+    width: 30vw;
+    height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid bisque;
+    position: fixed;
+    transition: position .30s ease-in-out;
+}
+.active{
+    top: 10%;
+    left: 35%;
+}
+.display-child{
+    display: flex;
+    width: 80%;
+     background-color: cadetblue;
+    color: white;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+ #close{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+    background-color: grey;
+    color: black;
+    font-weight: bold;
+    font-size: 1.3em;
+    transition: background-color 0.3s ease,letter-spacing .2s ease-in-out,transform .3s ease-in-out;
+ border: solid 2px burlywood;
+
+ }
+   #close:hover {
+ background-color: brown;
+ color: aqua;
+ letter-spacing: 2px;
+ transform: scale(.8);
+ }
+ .total-users,.total-wealth{
+     background-color: rgb(9, 56, 56);
+    color: white;
+    padding: 0 10px 0 10px;
+    margin: 5px;
+    border-radius: 5px;
+
+ }

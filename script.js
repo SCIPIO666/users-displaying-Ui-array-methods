@@ -1,9 +1,17 @@
 //////---global variables----////////
 
 const usersContainer=document.querySelector(".users-list");
+const closeModal=document.querySelector("#close");
+const modal= document.querySelector(".display");
+
 
 //-----------------------------------------------------------////
 
+//----------dom events---------------------------------------///
+
+closeModal.addEventListener("click",e=>{
+    modal .classList.toggle("active");
+});
 
 ////////////------  state/data----------  /////////////////
 async function fetchMultipleUsers(num) {
@@ -170,6 +178,8 @@ function calculateWealth(){
 
 }
 function displayTotal(){
+    const overlay=document.querySelector(".display");
+    overlay.classList.toggle("active");
 
 }
 const buttons=document.querySelectorAll("button");
@@ -203,6 +213,7 @@ buttons.forEach(button=>{
 });
 
 //----------------------------------------------------------------------------//
+
 function updateEachUserWealth(){
     const allUsers=document.querySelectorAll(".user");
     allUsers.forEach(user=>{
@@ -226,5 +237,6 @@ async function initializeApp() {
 }
 
  initializeApp(); // Start the application
+
  ///////////////////////////////////////////////////////////////////////////////
 

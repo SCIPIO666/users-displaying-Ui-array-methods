@@ -56,7 +56,58 @@ async function fetchMultipleUsers(num) {
         this.childCreatorFunction=childCreatorFunction;
         this.currentUsers=[];
     }
+    generateUnsortedList(){
+        const allUsers=document.querySelectorAll(".user");
+        const unsortedUsers=[];
+        allUsers.forEach(user=>{
+            unsortedUsers.push({
+                image: user.querySelector(".user-photo").getAttribute("href"),
+                name: user.querySelector(".user-name").innerHTML,
+                email: user.querySelector(".user-email").innerHTML,
+                location: user.querySelector(".user-location").innerHTML,
+                wealth: user.querySelector(".wealth").innerHTML,
+                id: user.getAttribute("id"),
 
+            });
+        });
+        return unsortedUsers;
+    }
+    renderCard(object){
+        const card=document.createElement("div");
+
+        card.classList.add("user"); 
+        card.setAttribute("id",object.id) ;  
+        for(key in object){
+            if(key==="image"){
+                const node=document.createElement("img");
+                node.setAttribute("href",object.key);
+                node.classList.add("user-photo")
+                card.appendChild(node);
+            }else{
+                const node=document.createElement("div");
+                node.innerHTML=object.key;
+                node.classList.add(`user-${key}`)
+                card.appendChild(node);  
+            }                               
+        }
+        this.parent.appendChild(card);
+    }
+    updateUi(){
+       const unsortedUsers= this.generateUnsortedList();
+       const sortedUsers=this.usersArray;
+       this.removeUsers();
+       for(i=0; i=unsortedUsers.length; i++){
+
+            sortedUsers.forEach(user=>{
+                if(user.id===unsortedUsers[i].id){
+                    this.renderCard(unsortedUsers[i])
+                }
+            });
+       }
+
+        //create card for each user with classnames
+        //append card to body
+    }
     addUsers() {
             if (!this.usersArray || this.usersArray.length === 0) {
                 console.error("User array is empty or not loaded.");
@@ -84,9 +135,6 @@ async function fetchMultipleUsers(num) {
                 });
             }
         }
-    addSortedUsers(){
-
-    }
     allocateContent(node,number){
         if(node.classList.contains("user-photo")){
             node.setAttribute("src",this.usersArray[number].picture.medium)
@@ -193,25 +241,25 @@ function compileUserWealthList(){
 }
 
 
-function sortByRichest(usersArray) {
-    const n = usersArray.length;
+function sortByRichest(sortingUsersArray) {
+    const n = sortingUsersArray.length;
             // Insertion Sort implementation (Descending order)
         for (let i = 1; i < n; i++) {
-                let key = usersArray[i]; // Object to be inserted
+                let key = sortingUsersArray[i]; // Object to be inserted
                 let j = i - 1;
 
-            while (j >= 0 && usersArray[j].wealth < key.wealth) { 
-                    usersArray[j + 1] = usersArray[j];
+            while (j >= 0 && sortingUsersArray[j].wealth < key.wealth) { 
+                    sortingUsersArray[j + 1] = sortingUsersArray[j];
                     j -= 1;
                 }
-                usersArray[j + 1] = key;
+                sortingUsersArray[j + 1] = key;
         }
 
             // After sorting the array, update the DOM order
         const mainContainer = document.getElementById('main');
-        console.log(usersArray)
-        const newUi=new Users(usersArray,usersContainer,createNode)
-        newUi.addUsers();
+        console.log(sortingUsersArray)
+        const newUi=new Users(sortingUsersArray,usersContainer,createNode)
+        newUi.updateUi();
 }
 //-----------calculate wealth--------------//
 function displayTotals(totalWealth,wealthArray){

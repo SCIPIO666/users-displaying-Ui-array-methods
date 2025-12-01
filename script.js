@@ -54,6 +54,7 @@ async function fetchMultipleUsers(num) {
         this.usersArray=usersArray;
         this.parent=container;
         this.childCreatorFunction=childCreatorFunction;
+        this.currentUsers=[];
     }
 
     addUsers() {
@@ -83,7 +84,9 @@ async function fetchMultipleUsers(num) {
                 });
             }
         }
+    addSortedUsers(){
 
+    }
     allocateContent(node,number){
         if(node.classList.contains("user-photo")){
             node.setAttribute("src",this.usersArray[number].picture.medium)
@@ -102,7 +105,7 @@ async function fetchMultipleUsers(num) {
             return `<label>Location: </label> ${this.usersArray[number].location.city}, ${this.usersArray[number].location.country}`
         }
         if(node.classList.contains("wealth")){
-            const randomWealth=Math.floor(Math.random() * (2000000 - 200000  + 1)) + 200000;
+            const randomWealth=Math.floor(Math.random() * (1500000 - 200000  + 1)) + 200000;
             return `<label >Wealth: </label> $${randomWealth.toLocaleString('en-US')}`;
         }
         return ""; // Fallback return value
@@ -124,6 +127,8 @@ async function fetchMultipleUsers(num) {
 
  }
 //----------------------------------array mehods ------------------------------//
+
+//-------------helper functions------//
 function getWealthElem(userContainer){
         const wealthElem=userContainer.querySelector(".wealth")
         return wealthElem;
@@ -143,7 +148,7 @@ function getCurrentWealth(userContainer) {
 function updateWealthDisplay(wealthValue,wealthNode){
     wealthNode.innerHTML=`<label >Wealth: </label> $${wealthValue.toLocaleString('en-US')}`;
 }
-
+//------------------double money--------------//
 function doubleMoney() {
     const currentUsers=document.querySelectorAll(".user");
     currentUsers.forEach(user=>{
@@ -156,9 +161,9 @@ function doubleMoney() {
 updateEachUserWealth()
 }
 
-
+//---------------------------show millinares-------------//
 function showMillionares(){
-   const currentUsers=document.querySelectorAll(".user");
+      const currentUsers=document.querySelectorAll(".user");
     currentUsers.forEach(user=>{
         if(user.dataset.wealth>999999){
             user.style.display="flex";
@@ -166,13 +171,49 @@ function showMillionares(){
             user.style.display="none";
         }
     });
+  
 }
-function sortByRichest(){
- const currentUsers=document.querySelectorAll(".user");
+//------------------sorting from richest-------------//
+function compileUserWealthList(){
+     const currentUsers=document.querySelectorAll(".user");
+   let userProfiles=[];
+
     currentUsers.forEach(user=>{
-       
+    const userWealth=getCurrentWealth(user);
+         if (!isNaN(userWealth)) {
+                    userProfiles.push({
+                        element: user,
+                        id: user.getAttribute("id"),
+                        wealth: userWealth
+                    });
+        }   
     });
+
+    return userProfiles;
 }
+
+
+function sortByRichest(usersArray) {
+    const n = usersArray.length;
+            // Insertion Sort implementation (Descending order)
+        for (let i = 1; i < n; i++) {
+                let key = usersArray[i]; // Object to be inserted
+                let j = i - 1;
+
+            while (j >= 0 && usersArray[j].wealth < key.wealth) { 
+                    usersArray[j + 1] = usersArray[j];
+                    j -= 1;
+                }
+                usersArray[j + 1] = key;
+        }
+
+            // After sorting the array, update the DOM order
+        const mainContainer = document.getElementById('main');
+        console.log(usersArray)
+        const newUi=new Users(usersArray,usersContainer,createNode)
+        newUi.addUsers();
+}
+//-----------calculate wealth--------------//
 function displayTotals(totalWealth,wealthArray){
     const userTotalElem=document.querySelector(".total-users");
     userTotalElem.textContent=wealthArray.length;
@@ -197,6 +238,7 @@ function calculateWealth(){
     displayTotals(totalWealth,usersWealth);
 }
 
+//--------------event listeners------------//
 const buttons=document.querySelectorAll("button");
 buttons.forEach(button=>{
     button.addEventListener("click",e=>{
@@ -212,7 +254,8 @@ buttons.forEach(button=>{
                 break;
 
             case "sort-by-richest":
-                    sortByRichest();
+                const users=compileUserWealthList()
+                    sortByRichest(users);
                 break;
 
             case "calculate-wealth":
@@ -227,7 +270,7 @@ buttons.forEach(button=>{
 });
 
 //----------------------------------------------------------------------------//
-
+//app intialization
 function updateEachUserWealth(){
     const allUsers=document.querySelectorAll(".user");
     allUsers.forEach(user=>{

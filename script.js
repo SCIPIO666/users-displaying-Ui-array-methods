@@ -94,7 +94,7 @@ async function fetchMultipleUsers(num) {
             return `<label>Location: </label> ${this.usersArray[number].location.city}, ${this.usersArray[number].location.country}`
         }
         if(node.classList.contains("wealth")){
-            const randomWealth=Math.floor(Math.random() * (2000000000 - 200000  + 1)) + 200000;
+            const randomWealth=Math.floor(Math.random() * (2000000 - 200000  + 1)) + 200000;
             return `<label >Wealth: </label> $${randomWealth.toLocaleString('en-US')}`;
         }
         return ""; // Fallback return value
@@ -147,10 +147,24 @@ function doubleMoney() {
 updateEachUserWealth()
 }
 function showMillionares(){
-
+   const currentUsers=document.querySelectorAll(".user");
+    currentUsers.forEach(user=>{
+        if(user.dataset.wealth>999999){
+            user.style.display="flex";
+        }else{
+            user.style.display="none";
+        }
+    });
 }
 function sortByRichest(){
-
+ const currentUsers=document.querySelectorAll(".user");
+    currentUsers.forEach(user=>{
+        if(user.dataset.wealth>999999){
+            user.style.display="flex";
+        }else{
+            user.style.display="none";
+        }
+    });
 }
 function calculateWealth(){
 
